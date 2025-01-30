@@ -1,0 +1,80 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>New Order</h1>
+    <form action="{% url 'order_create' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_user">User </label>
+            <select id="id_user" name="user">
+                {% for user in users %}
+                <option value="{{user.pk}}" {% if user.pk == form.user.value %} selected {% endif %} >
+                    {{user}}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="id_name">Category</label>
+            <select id="id_name" name="name">
+                {% for category in categorys %}
+
+                <option value="{{ category.pk }}"{% if category.pk == form.category.value %} selected {% endif %}>
+                    {{ category }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+         <div>
+            <label for="id_product">Product</label>
+            <select id="id_product" name="product[]" multiple>
+
+                {% for product in products %}
+                <option value="{{ product.pk }}"{% if product.pk in form.product.value %} selected {% endif %}>
+                    {{ product }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="id_created_at">Date</label>
+            <input type="date" id="id_created_at" name="created_at"></input>
+            {% for error in form.created_at.errors %}
+                <small style="color: red">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="id_created_at_time">Time</label>
+            <input type="time" id="id_created_at_time" name="order_time" required />
+            {% for error in form.created_at.errors %}
+                <small style="color: red">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="id_your_order">Notes </label>
+            <input type="text" id="id_your_order" name="your_order"></input>
+        </div>
+
+        <div>
+            <label for="id_status">Status </label>
+            <input type="text" id="id_status" name="status"></input>
+        </div>
+
+        <div>
+            <label for="id_price">Price</label>
+            <input type="number" id="id_price" name="price" min="0" />
+        </div>
+
+
+       <div>
+            <button type="submit" class="btn btn-primary">Finish Order</button>
+        </div>
+
+
+    </form>
+{% endblock content %}

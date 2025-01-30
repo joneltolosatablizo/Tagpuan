@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<a href="{% url 'order_create' %}" class="addOrder">+ Add Order </a>
+
+<table>
+    <thead>
+        <tr>
+             <th>User</th>
+             <th>Date</th>
+             <th>Order</th>
+             <th>Status</th>
+             <th>Added by</th>
+             <th>View</th>
+             <th>Update</th>
+             <th>Delete</th>
+        </tr>
+    <tbody>
+    {% for order in orders %}
+        <tr>
+             <td>{{order.user}}</td>
+             <td>{{order.created_at | date:"M d, Y"}}</td>
+             <td>{{order.your_order}}</td>
+             <td>{{order.status}}</td>
+                 {% for user in order.user.all %}
+                 {% endfor %}
+             </td>
+            <td>{{order.user}}</td>
+            <td><a href="{% url 'order_detail' order.pk %}">View</a></td>
+            <td><a href="{% url 'order_update' order.pk %}">Edit</a></td>
+            <td><a href="{% url 'order_delete' order.pk %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr></tr>
+    </tfoot>
+    </thead>
+</table>
+
+{% endblock content %}

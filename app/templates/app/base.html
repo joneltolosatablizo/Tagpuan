@@ -7,11 +7,24 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}"
 </head>
 <body>
-{% include 'app/navbar.html
-'  %}
+    {% include 'app/navbar.html' %}
+    <main>
+    {% if user.is_authenticated %}
+    <h3>Hello {{user.username}}!</h3>
+    <form method = "post" action="{% url 'logout' %}"
+       {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+    {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
     {% block content %}
         <!--pages-->
     {% endblock content %}
-    <script src="{% static 'js/base.js' %}" ></script>
+    </main>
+
+        <script src="{% static 'js/base.js' %}" ></script>
 </body>
 </html>
+

@@ -1,8 +1,89 @@
-h1 {
-    color: #3875d7;
+.mylogo {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+
+}
+.order-entry {
+    transition: border-bottom-width;
+    font-style: italic;
+    background-color: darkorange;
+    margin: 10px 10px 0;
+    font-weight : 400;
+}
+.a home{
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+
 }
 
-.mylogo {
-    height: 300px;
-    width: auto;
+.order-entry h2 a,
+.order-entry h2 a:visited {
+    color: black;
+    text-decoration: none;
+
+}
+
+.order-entry h2 a:hover {
+    color: white;
+
+}
+
+header a {
+    font-size: 25px;
+    text-decoration: none;
+    margin-left: 12%;
+    padding: 10px 20px 10px;
+
+}
+header a:hover{
+    background-color: white;
+    color: #a41515;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: orange;
+    padding: 15px;
+}
+main {
+    margin-top: 50px;
+    padding: 20px;
+
+}
+
+.addOrder {
+    font-size: 25px;
+    text-decoration: none;
+    margin-top: 50px;
+
+}
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 30px 100px 30px 100px;
+
+}
+
+#login-box {
+    width: 100% !important
 }

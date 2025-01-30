@@ -1,0 +1,12 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+        <div class="order-entry">
+            <h2><a href="">{{order.user}}</a></h2>
+            <p>{{ order.status }}</p>
+        </div>
+        <a href="{% url 'order_update' order.pk %}"> + Edit Order</a>
+        <a href="{% url 'order_delete' order.pk %}"> - Delete Order</a>
+
+{% endblock content %}
