@@ -2,6 +2,16 @@
 {% block content %}
 <a href="{% url 'order_create' %}" class="addOrder">+ Add Order </a>
 
+<div class="header-bar">
+    <form method="get" action="{% url 'order' %}" class="search-form">
+        <div class="search-container">
+            <input type="text" name="q" placeholder="Search for User..." value="{{ search_query }}" class="search-input">
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
 <table>
     <thead>
         <tr>
@@ -29,6 +39,8 @@
             <td><a href="{% url 'order_update' order.pk %}">Edit</a></td>
             <td><a href="{% url 'order_delete' order.pk %}">Delete</a></td>
         </tr>
+      {% empty %}
+        <strong><p>Oops! No Order found!</p></strong>
     {% endfor %}
     </tbody>
     <tfoot>

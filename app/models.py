@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import  reverse
+from django.conf import settings
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
 
@@ -30,7 +30,7 @@ class Product(models.Model):
         return self.name
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField()
     your_order = models.TextField()
     status = models.CharField(max_length=20, default='pending')
@@ -47,3 +47,13 @@ class Orderitem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    feedback = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.feedback
+
+    def get_absolute_url(self):
+        return reverse("review_detail", kwargs = {"pk": self.pk})
