@@ -2,6 +2,10 @@ from django.urls import path
 from .views import (HomePageView, AboutPageView, OrderListView)
 from .views import (OrdersDetailView, OrderCreateView, OrderUpdateView, OrderDeleteView)
 from .views import (ReviewCreateView, ReviewDeleteView,ReviewDetailView, ReviewListView, ReviewUpdateView)
+from django.urls import path
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -18,4 +22,11 @@ urlpatterns = [
     path('review/create', ReviewCreateView.as_view(), name='review_create'),
     path('review/<int:pk>/edit', ReviewUpdateView.as_view(), name='review_update'),
     path('review/<int:pk>/delete', ReviewDeleteView.as_view(), name='review_delete'),
+
+    path("cart", views.cart, name="cart"),
+    path("checkout", views.checkout, name="checkout"),
+    path("view-orders", views.view_orders, name="view_orders"),
+    path("mark_order_as_delivered", views.mark_order_as_delivered, name="mark_order_as_delivered"),
+    path("save_cart", views.save_cart, name="save_cart"),
+    path("retrieve_saved_cart", views.retrieve_saved_cart, name="retrieve_saved_cart"),
 ]

@@ -8,6 +8,8 @@ from .models import  Review
 from .forms import ReviewForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .models import UserOrder, SavedCarts
+
 
 class HomePageView(TemplateView):
     template_name = 'app/home.html'
@@ -94,3 +96,79 @@ class ReviewDeleteView(DeleteView):
     success_url = reverse_lazy('review_list')
 
 
+
+def cart(request):
+    if request.user.is_authenticated:
+        return render(request, "app/cart.html")
+    else:
+        return redirect("app/registration:login")
+
+def checkout(request):
+    if request.method == 'POST':
+        cart = json.loads(request.POST.get('cart'))
+        price = request.POST.get('price_of_cart')
+        username = request.user.username
+        response_data = {}
+        list_of_items = [item["item_description"] for item in cart]
+
+        order = UserOrder(username=username, order=list_of_items, price=float(price), delivered=False) #create the row entry
+        order.save() #save row entry in database
+
+        response_data['result'] = 'Order Recieved!'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def view_orders(request):
+    if request.user.is_superuser:
+        #make a request for all the orders in the database
+        rows = UserOrder.objects.all().order_by('-time_of_order')
+        #orders.append(row.order[1:-1].split(","))
+
+        return render(request, "app/orders.html", context = {"rows":rows})
+    else:
+        rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
+        return render(request, "app/orders.html", context = {"rows":rows})
+
+def mark_order_as_delivered(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        UserOrder.objects.filter(pk=id).update(delivered=True)
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def save_cart(request):
+    if request.method == 'POST':
+        cart = request.POST.get('cart')
+        saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
+        saved_cart.save() #save row entry in database
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def retrieve_saved_cart(request):
+    try:
+        saved_cart = SavedCarts.objects.get(username = request.user.username)
+        return HttpResponse(saved_cart.cart)
+    except:
+        return HttpResponse('')
