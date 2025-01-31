@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import  reverse
 from django.conf import settings
 
+
 class UserProfile(models.Model):
     address = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
@@ -87,3 +88,5 @@ class SavedCarts(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"Saved cart for {self.username}"
+
+

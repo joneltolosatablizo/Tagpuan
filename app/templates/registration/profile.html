@@ -2,13 +2,23 @@
 
 {% block content %}
   <h2>Profile Details</h2>
+
+            {% if user.profile_pic %}
+                <img src="{{ user.profile_pic.url }}" alt="Profile Picture" height="150" width="150" style="border-radius: 50%">
+            {% else %}
+                <img src="#" alt="Default Profile Picture">
+            {% endif %}
+
   <p><strong>Username:</strong> {{ user.username }}</p>
   <p><strong>Email:</strong> {{ user.email }}</p>
   <p><strong>First Name:</strong> {{ user.first_name }}</p>
   <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-  <p><strong>Age:</strong> {{ user.age }}</p>
-  <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+    {% if user.age %} <p><strong>Age:</strong> {{ user.age }}</p> {% endif %}
+    {% if user.phone_number %} <p><strong>Phone Number:</strong> {{ user.phone_number }}</p> {% endif %}
 
   <a href="{% url 'profile_edit' %}">Edit Profile</a> |
   <a href="{% url 'profile_delete' %}" style="color: red;">Delete Account</a>
+
+
+
 {% endblock %}

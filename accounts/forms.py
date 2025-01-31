@@ -6,24 +6,9 @@ from .models import CustomUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('username', 'email', 'age', 'phone_number')
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'phone_number', 'profile_pic')
 
 class CustomUserChangeForm(UserChangeForm):
      class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'phone_number')
-
-
-# class Registration(UserCreationForm):
-#     # username = forms.CharField(label='Username', required=True, help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",max_length="50", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'jsmith'}))
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['username'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"jsmith"})
-#         self.fields['password1'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"*******"})
-#         self.fields['password2'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"*******"})
-#
-# class Login(AuthenticationForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['username'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"jsmith"})
-#         self.fields['password'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"*******"})
+        fields = ('username', 'email', 'first_name', 'last_name', 'age', 'phone_number', 'profile_pic')

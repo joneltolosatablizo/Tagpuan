@@ -69,17 +69,17 @@ class OrderDeleteView(DeleteView):
 class ReviewListView(ListView):
     model = Review
     context_object_name = 'reviews'
-    template_name = 'app/reviews/review_list.html'
+    template_name = 'app/review_list.html'
 
 class ReviewDetailView(DetailView):
     model = Review
     context_object_name = 'review'
-    template_name = 'app/reviews/review_detail.html'
+    template_name = 'app/review_detail.html'
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ['feedback']
-    template_name = 'app/reviews/review_create.html'
+    template_name = 'app/review_create.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user  # Assign the logged-in user
@@ -88,13 +88,12 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 class ReviewUpdateView(UpdateView):
     model = Review
     fields = ['feedback']
-    template_name = 'app/reviews/review_update.html'
+    template_name = 'app/review_update.html'
 
 class ReviewDeleteView(DeleteView):
     model = Review
-    template_name = 'app/reviews/review_delete.html'
+    template_name = 'app/review_delete.html'
     success_url = reverse_lazy('review_list')
-
 
 
 def cart(request):
@@ -172,3 +171,9 @@ def retrieve_saved_cart(request):
         return HttpResponse(saved_cart.cart)
     except:
         return HttpResponse('')
+
+class ProfileUpdate(UpdateView):
+    model = get_user_model()
+    fields = ['username', 'email', 'profile_pic']
+    template_name = 'registration/profile_edit.html'
+    success_url = reverse_lazy('Profile')

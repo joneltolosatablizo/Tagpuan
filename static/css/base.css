@@ -34,23 +34,28 @@
 header a {
     font-size: 25px;
     text-decoration: none;
-    margin-left: 12%;
+    margin-left: 8%;
     padding: 10px 20px 10px;
 
 }
 header a:hover{
     background-color: white;
-    color: #a41515;
+    color: black;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+     border-radius: 8px;
 }
 header{
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    font-size: 15px;
     z-index: 9999;
     width: 100%;
     background-color: orange;
     padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
 }
 main {
     margin-top: 50px;
@@ -72,6 +77,8 @@ main {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .btn:hover {
@@ -87,4 +94,27 @@ table, th, td {
 
 #login-box {
     width: 100% !important
+}
+
+.review_link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ensure the entire fieldset is clickable */
+.review_link fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+     background-color: orange;
+    padding: 15px;
+}
+
+/* Hover effect for the entire fieldset */
+.review_link:hover fieldset {
+    background-color: orange;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

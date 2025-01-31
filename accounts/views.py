@@ -1,15 +1,17 @@
 from .forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import CustomUser
 from .forms import CustomUserChangeForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
+
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = CustomUser
@@ -24,6 +26,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'registration/profile_edit.html'
     success_url = reverse_lazy('profile')
 
+
     def get_object(self):
         return self.request.user  # Allow user to edit their own profile
 
@@ -34,8 +37,3 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_object(self):
         return self.request.user  # Allow user to delete their own account
-# Create your views here.
-
-
-
-
